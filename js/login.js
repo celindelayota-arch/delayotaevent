@@ -3,6 +3,24 @@ function goLogin() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+
+  // =========================
+  // CEK STATUS LOGIN
+  // =========================
+  const user = localStorage.getItem("user");
+  const statusText = document.getElementById("loginStatus");
+
+  if (statusText) {
+    if (user) {
+      statusText.innerText = "Sudah login sebagai " + user;
+    } else {
+      statusText.innerText = "Belum Login";
+    }
+  }
+
+  // =========================
+  // PROSES LOGIN
+  // =========================
   const form = document.querySelector("form");
 
   if (form) {
@@ -15,9 +33,10 @@ document.addEventListener("DOMContentLoaded", function () {
       if (email && password) {
         alert("Login berhasil!");
 
-        // contoh simpan status login
+        // simpan status login
         localStorage.setItem("user", email);
 
+        // pindah ke halaman utama
         window.location.href = "../index.html";
       } else {
         alert("Isi email dan password!");
@@ -25,3 +44,12 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
+
+// =========================
+// LOGOUT
+// =========================
+function logout() {
+  localStorage.removeItem("user");
+  alert("Berhasil logout!");
+  location.reload();
+}
